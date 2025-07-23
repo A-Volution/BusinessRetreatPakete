@@ -1,0 +1,591 @@
+<!DOCTYPE **html**>
+
+<html lang="de" class="scroll-smooth">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>A-Volution: Transformation beginnt hier.</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+<style>
+
+body {
+
+font-family: 'Inter', sans-serif;
+
+color: #333333; /* Dunkelgrau für Haupttext */
+
+}
+
+.text-primary-blue { color: #003366; } /* Dunkelblau */
+
+.bg-primary-blue { background-color: #003366; }
+
+.border-primary-blue { border-color: #003366; }
+
+.text-secondary-blue { color: #007bff; } /* Hellblau */
+
+.bg-secondary-blue { background-color: #007bff; }
+
+.border-secondary-blue { border-color: #007bff; }
+
+.text-accent-yellow { color: #ffc107; } /* Akzentgelb */
+
+.bg-accent-yellow { background-color: #ffc107; }
+
+.hover\:bg-accent-yellow-dark:hover { background-color: #e0a800; } /* Dunkleres Gelb für Hover */
+
+.text-secondary-gray { color: #666666; } /* Mittelgrau */
+
+.btn {
+
+@apply px-8 py-3 rounded-full font-bold transition-all duration-300;
+
+}
+
+.btn-primary {
+
+@apply bg-accent-yellow text-primary-blue hover:bg-accent-yellow-dark;
+
+}
+
+.btn-secondary {
+
+@apply bg-transparent text-secondary-blue border border-secondary-blue hover:bg-secondary-blue hover:text-white;
+
+}
+
+.filter-btn {
+
+@apply px-5 py-2 rounded-full font-medium transition-colors duration-200;
+
+background-color: #F8F8F8;
+
+color: #666666;
+
+}
+
+.filter-btn.active {
+
+background-color: #007bff;
+
+color: white;
+
+}
+
+.package-card {
+
+@apply bg-white p-6 rounded-lg shadow-md transition-transform duration-300 hover:scale-105 hover:shadow-lg;
+
+border-top: 4px solid #003366;
+
+}
+
+.package-card-icon {
+
+font-size: 2.5rem;
+
+line-height: 1;
+
+margin-bottom: 1rem;
+
+color: #007bff;
+
+}
+
+.logo-text-main {
+
+font-weight: 900;
+
+font-size: 2.25rem; /* text-4xl */
+
+line-height: 1;
+
+color: #003366;
+
+}
+
+.logo-text-sub {
+
+font-weight: 500;
+
+font-size: 0.875rem; /* text-sm */
+
+line-height: 1;
+
+color: #666666;
+
+margin-top: 0.25rem;
+
+}
+
+</style>
+
+</head>
+
+<body class="bg-white">
+
+<header class="bg-white/90 backdrop-blur-sm sticky top-0 z-50 shadow-sm">
+
+<nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+
+<a href="#" class="flex flex-col items-start">
+
+<span class="logo-text-main">A-Volution</span>
+
+<span class="logo-text-sub">solution</span>
+
+</a>
+
+<div class="hidden md:flex space-x-8">
+
+<a href="#warum" class="text-secondary-gray hover:text-secondary-blue font-medium">Warum wir?</a>
+
+<a href="#pakete" class="text-secondary-gray hover:text-secondary-blue font-medium">Pakete</a>
+
+<a href="#mehrwert" class="text-secondary-gray hover:text-secondary-blue font-medium">Ihr Mehrwert</a>
+
+<a href="#kontakt" class="text-secondary-gray hover:text-secondary-blue font-medium">Kontakt</a>
+
+</div>
+
+<a href="#kontakt" class="hidden md:inline-block btn btn-primary">Beratung anfragen</a>
+
+<button id="mobile-menu-button" class="md:hidden text-primary-blue focus:outline-none">
+
+<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+
+</button>
+
+</nav>
+
+<div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg">
+
+<a href="#warum" class="block py-3 px-6 text-secondary-gray hover:bg-gray-100">Warum wir?</a>
+
+<a href="#pakete" class="block py-3 px-6 text-secondary-gray hover:bg-gray-100">Pakete</a>
+
+<a href="#mehrwert" class="block py-3 px-6 text-secondary-gray hover:bg-gray-100">Ihr Mehrwert</a>
+
+<a href="#kontakt" class="block py-3 px-6 text-secondary-gray hover:bg-gray-100">Kontakt</a>
+
+<a href="#kontakt" class="block py-3 px-6 btn btn-primary mx-6 my-4 text-center">Beratung anfragen</a>
+
+</div>
+
+</header>
+
+<main>
+
+<section class="relative bg-cover bg-center h-[600px] flex items-center justify-center text-center" style="background-image: url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
+
+<div class="absolute inset-0 bg-black opacity-50"></div>
+
+<div class="relative z-10 text-white p-8 max-w-4xl">
+
+<h1 class="text-5xl md:text-6xl font-extrabold leading-tight text-primary-blue drop-shadow-lg">A-Volution: Transformation beginnt hier.</h1>
+
+<p class="mt-4 text-2xl md:text-3xl font-semibold text-secondary-blue drop-shadow-md">Wirkungsvolle Business Retreats für nachhaltigen Erfolg.</p>
+
+<p class="mt-6 text-lg md:text-xl max-w-2xl mx-auto">Wir gestalten und moderieren maßgeschneiderte Retreats, die Ihr Team neu ausrichten, Ihre Führung stärken und Ihre Zukunftsfähigkeit sichern.</p>
+
+<a href="#kontakt" class="mt-10 inline-block btn btn-primary text-lg">Kostenloses Beratungsgespräch vereinbaren</a>
+
+</div>
+
+</section>
+
+<section id="warum" class="py-20 bg-gray-50">
+
+<div class="container mx-auto px-6 text-center">
+
+<h2 class="text-4xl font-bold text-primary-blue mb-8">Mehr als ein Offsite: Echte Transformation.</h2>
+
+<p class="text-lg max-w-3xl mx-auto mb-12 text-secondary-gray">
+
+Ein Business Retreat von A-Volution geht weit über herkömmliche Meetings oder Offsites hinaus. Wir schaffen einen Raum für tiefgreifende Entwicklung, der nachhaltige Ergebnisse liefert.
+
+</p>
+
+<div class="grid md:grid-cols-3 gap-8">
+
+<div class="p-6 bg-white rounded-lg shadow-md border-t-4 border-secondary-blue">
+
+<h3 class="text-2xl font-bold text-primary-blue mb-4">Business Retreat</h3>
+
+<p class="text-secondary-gray">Ganzheitliche Team-/Führungsentwicklung, strategische Ausrichtung, kulturelle Verankerung, Wohlbefinden. Mehrtägig, mit Fokus auf Transformation und nachhaltigem Wandel.</p>
+
+</div>
+
+<div class="p-6 bg-white rounded-lg shadow-md border-t-4 border-gray-300">
+
+<h3 class="text-2xl font-bold text-gray-700 mb-4">Klassisches Offsite</h3>
+
+<p class="text-secondary-gray">Spezifische Projektarbeit, Brainstorming, Problemlösung. Wenige Stunden bis 1-2 Tage. Fokus auf Arbeitsergebnissen, Teambuilding ist sekundär.</p>
+
+</div>
+
+<div class="p-6 bg-white rounded-lg shadow-md border-t-4 border-gray-300">
+
+<h3 class="text-2xl font-bold text-gray-700 mb-4">Workshop</h3>
+
+<p class="text-secondary-gray">Kompetenzentwicklung, Wissenstransfer, interaktives Lernen. Wenige Stunden bis 1 Tag. Starker Fokus auf spezifischen Lernzielen oder praktischer Anwendung.</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section id="pakete" class="py-20">
+
+<div class="container mx-auto px-6 text-center">
+
+<h2 class="text-4xl font-bold text-primary-blue mb-8">Ihr Weg zur Transformation: Unsere Pakete.</h2>
+
+<p class="text-lg max-w-3xl mx-auto mb-12 text-secondary-gray">
+
+Wählen Sie das Modell, das am besten zu Ihren Zielen passt, oder lassen Sie uns ein vollständig maßgeschneidertes Programm für Sie entwickeln.
+
+</p>
+
+<div class="flex justify-center flex-wrap gap-3 mb-12">
+
+<button class="filter-btn active" data-filter="org-dev">Organisationsentwicklung</button>
+
+<button class="filter-btn" data-filter="leadership-future">Führung & Zukunft</button>
+
+<button class="filter-btn" data-filter="hearts-hotel">The Hearts Hotel</button>
+
+<button class="filter-btn" data-filter="sustainability">Nachhaltigkeit & Klima</button>
+
+</div>
+
+<div id="packages-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+</div>
+
+</div>
+
+</section>
+
+<section id="mehrwert" class="py-20 bg-gray-50">
+
+<div class="container mx-auto px-6 text-center">
+
+<h2 class="text-4xl font-bold text-primary-blue mb-8">Ihr messbarer Mehrwert: Warum A-Volution?</h2>
+
+<p class="text-lg max-w-3xl mx-auto mb-12 text-secondary-gray">
+
+Wir sind Ihr strategischer Partner für nachhaltige Organisationsentwicklung.
+
+</p>
+
+<div class="grid md:grid-cols-3 gap-10">
+
+<div class="p-6 bg-white rounded-lg shadow-md flex flex-col items-center text-center">
+
+<div class="package-card-icon">✨</div>
+
+<h3 class="text-xl font-bold text-primary-blue mb-2">Experten-Moderation</h3>
+
+<p class="text-secondary-gray">Zertifizierte Master-Moderatoren für tiefgreifende Prozesse und umsetzbare Ergebnisse.</p>
+
+</div>
+
+<div class="p-6 bg-white rounded-lg shadow-md flex flex-col items-center text-center">
+
+<div class="package-card-icon">🎯</div>
+
+<h3 class="text-xl font-bold text-primary-blue mb-2">Maßgeschneiderte Konzepte</h3>
+
+<p class="text-secondary-gray">Jedes Retreat wird präzise auf Ihre einzigartigen Ziele und Ihre Unternehmenskultur zugeschnitten.</p>
+
+</div>
+
+<div class="p-6 bg-white rounded-lg shadow-md flex flex-col items-center text-center">
+
+<div class="package-card-icon">⚙️</div>
+
+<h3 class="text-xl font-bold text-primary-blue mb-2">Nahtlose Logistik</h3>
+
+<p class="text-secondary-gray">Wir kümmern uns um alle Details – von der Location bis zum Catering, damit Sie sich auf Ihr Team konzentrieren können.</p>
+
+</div>
+
+<div class="p-6 bg-white rounded-lg shadow-md flex flex-col items-center text-center">
+
+<div class="package-card-icon">🤝</div>
+
+<h3 class="text-xl font-bold text-primary-blue mb-2">Psychologische Sicherheit</h3>
+
+<p class="text-secondary-gray">Wir schaffen eine vertrauensvolle Umgebung für offene Kommunikation und echte Verbindung.</p>
+
+</div>
+
+<div class="p-6 bg-white rounded-lg shadow-md flex flex-col items-center text-center">
+
+<div class="package-card-icon">📈</div>
+
+<h3 class="text-xl font-bold text-primary-blue mb-2">Nachhaltige Wirkung</h3>
+
+<p class="text-secondary-gray">Unsere Retreats führen zu messbaren Veränderungen und langfristigem Erfolg für Ihr Unternehmen.</p>
+
+</div>
+
+<div class="p-6 bg-white rounded-lg shadow-md flex flex-col items-center text-center">
+
+<div class="package-card-icon">🌐</div>
+
+<h3 class="text-xl font-bold text-primary-blue mb-2">Starkes Partnernetzwerk</h3>
+
+<p class="text-secondary-gray">Zugang zu handverlesenen Experten und Premium-Locations weltweit.</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="py-20">
+
+<div class="container mx-auto px-6 text-center">
+
+<h2 class="text-4xl font-bold text-primary-blue mb-8">Unser Netzwerk: Experten für Ihren Erfolg.</h2>
+
+<p class="text-lg max-w-3xl mx-auto mb-12 text-secondary-gray">
+
+Wir arbeiten mit einem handverlesenen Pool von externen Beratern zusammen, die nicht nur über herausragende Fachkenntnisse verfügen, sondern auch unser Mindset für transformative Arbeit teilen.
+
+</p>
+
+<div class="grid md:grid-cols-2 gap-8 text-left">
+
+<div class="p-6 bg-gray-50 rounded-lg shadow-md border-l-4 border-secondary-blue">
+
+<h3 class="text-2xl font-bold text-primary-blue mb-4">Das Mindset unserer Partner</h3>
+
+<ul class="list-disc list-inside text-secondary-gray space-y-2">
+
+<li>**Unternehmerisches Denken:** Sehen sich als Mitgestalter des Kundenerfolgs.</li>
+
+<li>**Kunden-Obsession:** Tiefes Einfühlungsvermögen in die Kundenbedürfnisse.</li>
+
+<li>**Anpassungsfähigkeit:** Flexibilität in dynamischen Retreat-Situationen.</li>
+
+<li>**Ergebnisorientierung:** Fokus auf messbare Ergebnisse und umsetzbare Pläne.</li>
+
+<li>**Kontinuierliche Lernbereitschaft:** Ständige Weiterentwicklung der Expertise.</li>
+
+</ul>
+
+</div>
+
+<div class="p-6 bg-gray-50 rounded-lg shadow-md border-l-4 border-secondary-blue">
+
+<h3 class="text-2xl font-bold text-primary-blue mb-4">Die Fähigkeiten unserer Partner</h3>
+
+<ul class="list-disc list-inside text-secondary-gray space-y-2">
+
+<li>**Exzellente Moderation & Kommunikation:** Führung von Diskussionen, Engagement von Gruppen.</li>
+
+<li>**Strategisches Denken & Konzeption:** Entwicklung maßgeschneiderter Retreat-Konzepte.</li>
+
+<li>**Projektmanagement & Organisation:** Planung und Durchführung komplexer Retreats.</li>
+
+<li>**Spezialisierte Fachkenntnisse:** Tiefe Expertise in relevanten Themenbereichen.</li>
+
+<li>**Beziehungsmanagement:** Aufbau starker Kunden- und Partnerbeziehungen.</li>
+
+</ul>
+
+</div>
+
+</div>
+
+<p class="mt-8 text-secondary-gray max-w-3xl mx-auto">
+
+Wir sichern die Qualität und schützen unsere Partnerschaften durch klare Verträge und einen Mehrwert, der die Zusammenarbeit mit A-Volution für alle Beteiligten attraktiv macht.
+
+</p>
+
+</div>
+
+</section>
+
+<section id="kontakt" class="py-20 bg-primary-blue text-white">
+
+<div class="container mx-auto px-6 text-center max-w-3xl">
+
+<h2 class="text-4xl font-bold mb-4">Bereit für den nächsten Schritt?</h2>
+
+<p class="text-lg text-blue-200 mb-10">
+
+Kontaktieren Sie uns für ein unverbindliches Beratungsgespräch. Wir freuen uns darauf, Ihre Vision zu verstehen und ein maßgeschneidertes Retreat zu gestalten, das Ihr Team transformiert.
+
+</p>
+
+<form class="bg-white p-8 rounded-lg shadow-xl text-left text-gray-800">
+
+<div class="grid md:grid-cols-2 gap-6 mb-6">
+
+<div>
+
+<label for="name" class="block text-sm font-medium text-gray-700 mb-2">Ihr Name</label>
+
+<input type="text" id="name" name="name" class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-secondary-blue focus:border-secondary-blue" required>
+
+</div>
+
+<div>
+
+<label for="email" class="block text-sm font-medium text-gray-700 mb-2">Ihre E-Mail</label>
+
+<input type="email" id="email" name="email" class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-secondary-blue focus:border-secondary-blue" required>
+
+</div>
+
+</div>
+
+<div class="grid md:grid-cols-2 gap-6 mb-6">
+
+<div>
+
+<label for="company" class="block text-sm font-medium text-gray-700 mb-2">Ihr Unternehmen</label>
+
+<input type="text" id="company" name="company" class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-secondary-blue focus:border-secondary-blue">
+
+</div>
+
+<div>
+
+<label for="team-size" class="block text-sm font-medium text-gray-700 mb-2">Teamgröße</label>
+
+<input type="number" id="team-size" name="team-size" min="5" class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-secondary-blue focus:border-secondary-blue">
+
+</div>
+
+</div>
+
+<div class="mb-6">
+
+<label for="topic" class="block text-sm font-medium text-gray-700 mb-2">Bevorzugtes Thema / Ziel</label>
+
+<select id="topic" name="topic" class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-secondary-blue focus:border-secondary-blue">
+
+<option value="">Bitte wählen</option>
+
+<option value="org-dev">Organisationsentwicklung</option>
+
+<option value="leadership-future">Führung & Zukunftsgestaltung</option>
+
+<option value="hearts-hotel">Retreat im The Hearts Hotel</option>
+
+<option value="sustainability">Nachhaltigkeit & Klimaanpassung</option>
+
+<option value="other">Anderes Thema</option>
+
+</select>
+
+</div>
+
+<div class="mb-6">
+
+<label for="message" class="block text-sm font-medium text-gray-700 mb-2">Ihre Nachricht</label>
+
+<textarea id="message" name="message" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-secondary-blue focus:border-secondary-blue"></textarea>
+
+</div>
+
+<button type="submit" class="w-full btn btn-primary text-lg">Anfrage senden</button>
+
+</form>
+
+<p class="mt-8 text-blue-200">Oder rufen Sie uns an: <a href="tel:+49123456789" class="text-secondary-blue hover:underline">+49 123 456789</a></p>
+
+<p class="text-blue-200">E-Mail: <a href="mailto:kontakt@a-volution.net" class="text-secondary-blue hover:underline">kontakt@a-volution.net</a></p>
+
+</div>
+
+</section>
+
+</main>
+
+<footer class="bg-primary-blue text-white py-8 text-center">
+
+<div class="container mx-auto px-6">
+
+<p>© 2025 A-Volution. Alle Rechte vorbehalten.</p>
+
+<div class="mt-4 space-x-4">
+
+<a href="#" class="text-blue-200 hover:text-secondary-blue">Impressum</a>
+
+<a href="#" class="text-blue-200 hover:text-secondary-blue">Datenschutz</a>
+
+<a href="#" class="text-blue-200 hover:text-secondary-blue"><i class="fab fa-linkedin"></i></a>
+
+<a href="#" class="text-blue-200 hover:text-secondary-blue"><i class="fab fa-instagram"></i></a>
+
+</div>
+
+</div>
+
+</footer>
+
+<script>
+
+// Mobile Menu Toggle
+
+document.getElementById('mobile-menu-button').addEventListener('click', function() {
+
+document.getElementById('mobile-menu').classList.toggle('hidden');
+
+});
+
+// Package Data
+
+const packagesData = {
+
+"org-dev":,
+
+results: "Eine klare, gemeinsam getragene strategische Roadmap, definierte Ziele und KPIs, ein umsetzbarer Aktionsplan für die nächsten 12-24 Monate, erhöhte Ausrichtung im Führungsteam."
+
+},
+
+{
+
+title: "Kultur-Architekten-Retreat",
+
+focus: "Analyse und Neugestaltung der Unternehmenskultur; Verankerung von Werten; Förderung psychologischer Sicherheit.",
+
+agenda: "Tag 1-2: Kultur-Audit & Ist-Analyse. Tag 3-4: Werte-Definition & Soll-Kultur-Design. Tag 5-6: Verankerung, Storytelling & Implementierungsstrategien.",
+
+contents: "Modelle der Unternehmenskultur (z.B. Schein's Kulturmodell), psychologische Sicherheit, Werte-Management, Storytelling im Unternehmenskontext.",
+
+exercises:,
+
+results: "Eine definierte und kommunizierbare Unternehmenskultur, verankerte Werte, ein Plan zur Förderung psychologischer Sicherheit, erhöhte Mitarbeiterbindung und -zufriedenheit."
+
+},
+
+{
+
+title: "Führungs-Alignment-Gipfel",
+
+focus: "Ausrichtung von Führungsteams auf gemeinsame Ziele; Verbesserung der Entscheidungsfindung und Kommunikation; Stärkung des Vertrauens innerhalb der
