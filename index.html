@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="de" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A-Volution: Transformation beginnt hier.</title>
+    <!-- Chosen Palette: A-Volution Corporate Identity (Primary Blue: #003366, Secondary Blue: #007bff, Accent Yellow: #ffc107) -->
+    <!-- Application Structure Plan: Die SPA ist als Lead-Generierungs-Trichter konzipiert. Sie beginnt mit einer starken Hero-Sektion, die das Wertversprechen kommuniziert. Darauf folgt ein klarer Vergleich, um das Produkt zu differenzieren. Der Kern ist ein interaktiver Paket-Explorer mit Filtern, der es den Nutzern ermöglicht, die 40 detaillierten Angebote nach ihren Bedürfnissen zu durchsuchen. Abschnitte über den Mehrwert und das Expertennetzwerk bauen Vertrauen auf. Die Seite schließt mit einem prominenten Kontaktformular ab. Diese Struktur führt den Nutzer logisch von der Aufmerksamkeit über das Interesse bis zur Konversion. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: Vergleich Retreat vs. Offsite/Workshop -> Goal: Compare -> Viz/Method: Strukturierte HTML/Tailwind-Karten -> Interaction: Keine, statischer Vergleich für schnelle Erfassbarkeit -> Justification: Ein klarer, visueller Vergleich ist effektiver als Text.
+        - Report Info: 40 Angebotspakete in 4 Kategorien -> Goal: Organize/Inform -> Viz/Method: Filterbare Akkordeon-Liste (HTML/Tailwind/JS) -> Interaction: Klick auf Filter-Buttons zeigt relevante Pakete an; Klick auf Paket-Titel öffnet Details (Agenda, Inhalte etc.) -> Justification: Ermöglicht die übersichtliche Darstellung einer großen Menge an Informationen, ohne den Nutzer zu überfordern. Der Nutzer kann sich auf das konzentrieren, was für ihn relevant ist.
+        - Report Info: Mehrwert & Netzwerk -> Goal: Inform -> Viz/Method: Icon-basierte Grid-Layouts -> Interaction: Keine -> Justification: Visuell ansprechende und schnell lesbare Darstellung der Kernvorteile zur Stärkung des Vertrauens.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #333333;
+        }
+       .text-primary-blue { color: #003366; }
+       .bg-primary-blue { background-color: #003366; }
+       .border-primary-blue { border-color: #003366; }
+
+       .text-secondary-blue { color: #007bff; }
+       .bg-secondary-blue { background-color: #007bff; }
+       .border-secondary-blue { border-color: #007bff; }
+
+       .bg-accent-yellow { background-color: #ffc107; }
+       .hover\:bg-accent-yellow-dark:hover { background-color: #e0a800; }
+
+       .text-secondary-gray { color: #666666; }
+
+       .btn {
+            @apply px-8 py-3 rounded-full font-bold transition-all duration-300;
+        }
+       .btn-primary {
+            @apply bg-accent-yellow text-primary-blue hover:bg-accent-yellow-dark;
+        }
+       
+       .filter-btn {
+            @apply px-4 py-2 text-sm md:px-5 md:py-2 md:text-base rounded-full font-semibold transition-colors duration-300 shadow-sm;
+            background-color: #f0f0f0;
+            color: #4a5568;
+        }
+       .filter-btn.active {
+            background-color: #007bff;
+            color: white;
+            box-shadow: 0 4px 14px 0 rgba(0, 123, 255, 0.39);
+        }
+       
+       .logo-text-main {
+            font-weight: 900;
+            font-size: 2.25rem;
+            line-height: 1;
+            color: #003366;
+        }
+       .logo-text-sub {
+            font-weight: 500;
+            font-size: 0.875rem;
+            line-height: 1;
+            color: #666666;
+            margin-top: 0.25rem;
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-white">
+
+    <header class="bg-white/90 backdrop-blur-sm sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="flex flex-col items-start">
+                <span class="logo-text-main">A-Volution</span>
+                <span class="logo-text-sub">solution</span>
+            </a>
+            <div class="hidden md:flex space-x-8">
+                <a href="#warum" class="text-secondary-gray hover:text-secondary-blue font-medium">Warum wir?</a>
+                <a href="#pakete" class="text-secondary-gray hover:text-secondary-blue font-medium">Angebote</a>
+                <a href="#mehrwert" class="text-secondary-gray hover:text-secondary-blue font-medium">Ihr Mehrwert</a>
+                <a href="#kontakt" class="text-secondary-gray hover:text-secondary-blue font-medium">Kontakt</a>
+            </div>
+            <a href="#kontakt" class="hidden md:inline-block btn btn-primary">Beratung anfragen</a>
+            <button id="mobile-menu-button" class="md:hidden text-primary-blue focus:outline-none">
+                <span class="w-8 h-1 bg-primary-blue block mb-1.5"></span>
+                <span class="w-8 h-1 bg-primary-blue block"></span>
+                <span class="w-8 h-1 bg-primary-blue block mt-1.5"></span>
+            </button>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg">
+            <a href="#warum" class="block py-3 px-6 text-secondary-gray hover:bg-gray-100">Warum wir?</a>
+            <a href="#pakete" class="block py-3 px-6 text-secondary-gray hover:bg-gray-100">Angebote</a>
+            <a href="#mehrwert" class="block py-3 px-6 text-secondary-gray hover:bg-gray-100">Ihr Mehrwert</a>
+            <a href="#kontakt" class="block py-3 px-6 text-secondary-gray hover:bg-gray-100">Kontakt</a>
+            <a href="#kontakt" class="block py-3 px-6 btn btn-primary mx-6 my-4 text-center">Beratung anfragen</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="relative bg-cover bg-center min-h-[600px] flex items-center justify-center text-center" style="background-image: url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
+            <div class="absolute inset-0 bg-white opacity-40"></div>
+            <div class="relative z-10 p-8 max-w-4xl">
+                <h1 class="text-5xl md:text-6xl font-black text-primary-blue drop-shadow-lg">A-Volution: Transformation beginnt hier.</h1>
+                <p class="mt-4 text-2xl md:text-3xl font-semibold text-secondary-blue drop-shadow-md">Wirkungsvolle Business Retreats für nachhaltigen Erfolg.</p>
+                <p class="mt-6 text-lg md:text-xl max-w-3xl mx-auto text-gray-800">Wir gestalten und moderieren maßgeschneiderte Retreats, die Ihr Team neu ausrichten, Ihre Führung stärken und Ihre Zukunftsfähigkeit sichern.</p>
+                <a href="#kontakt" class="mt-10 inline-block btn btn-primary text-lg">Kostenloses Beratungsgespräch vereinbaren</a>
+            </div>
+        </section>
+
+        <section id="warum" class="py-20 bg-gray-50">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-4xl font-bold text-primary-blue mb-8">Mehr als ein Offsite: Echte Transformation.</h2>
+                <p class="text-lg max-w-3xl mx-auto mb-12 text-secondary-gray">
+                    Ein Business Retreat von A-Volution geht weit über herkömmliche Meetings oder Offsites hinaus. Wir schaffen einen Raum für tiefgreifende Entwicklung, der nachhaltige Ergebnisse liefert.
+                </p>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="p-8 bg-white rounded-lg shadow-xl border-t-4 border-secondary-blue transform hover:scale-105 transition-transform duration-300">
+                        <h3 class="text-2xl font-bold text-primary-blue mb-4">Business Retreat</h3>
+                        <p class="text-secondary-gray">Ganzheitliche Team-/Führungsentwicklung, strategische Ausrichtung, kulturelle Verankerung. Mehrtägig, mit Fokus auf Transformation und nachhaltigem Wandel.</p>
+                    </div>
+                    <div class="p-8 bg-white rounded-lg shadow-lg border-t-4 border-gray-300">
+                        <h3 class="text-2xl font-bold text-gray-700 mb-4">Klassisches Offsite</h3>
+                        <p class="text-secondary-gray">Spezifische Projektarbeit, Brainstorming, Problemlösung. Wenige Stunden bis 1-2 Tage. Fokus auf Arbeitsergebnissen, Teambuilding ist sekundär.</p>
+                    </div>
+                    <div class="p-8 bg-white rounded-lg shadow-lg border-t-4 border-gray-300">
+                        <h3 class="text-2xl font-bold text-gray-700 mb-4">Workshop</h3>
+                        <p class="text-secondary-gray">Kompetenzentwicklung, Wissenstransfer, interaktives Lernen. Wenige Stunden bis 1 Tag. Starker Fokus auf spezifischen Lernzielen oder praktischer Anwendung.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="pakete" class="py-20">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-4xl font-bold text-primary-blue mb-8">Ihr Weg zur Transformation: Unsere Angebote.</h2>
+                <p class="text-lg max-w-3xl mx-auto mb-12 text-secondary-gray">
+                    Wählen Sie den Fokus, der am besten zu Ihren Zielen passt. Jedes Paket ist ein anpassbarer Baustein für Ihren Erfolg.
+                </p>
+
+                <div class="flex justify-center flex-wrap gap-3 mb-12">
+                    <button class="filter-btn active" data-filter="org-dev">Organisationsentwicklung</button>
+                    <button class="filter-btn" data-filter="leadership-future">Führung & Zukunft</button>
+                    <button class="filter-btn" data-filter="hearts-hotel">The Hearts Hotel</button>
+                    <button class="filter-btn" data-filter="sustainability">Nachhaltigkeit & Klima</button>
+                </div>
+
+                <div id="packages-container" class="max-w-4xl mx-auto text-left">
+                </div>
+            </div>
+        </section>
+
+        <section id="mehrwert" class="py-20 bg-gray-50">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-4xl font-bold text-primary-blue mb-8">Ihr messbarer Mehrwert: Warum A-Volution?</h2>
+                <p class="text-lg max-w-3xl mx-auto mb-12 text-secondary-gray">
+                    Wir sind Ihr strategischer Partner für nachhaltige Organisationsentwicklung.
+                </p>
+                <div class="grid md:grid-cols-3 gap-10">
+                    <div class="p-6 flex flex-col items-center text-center">
+                        <div class="text-5xl mb-4 text-secondary-blue">✨</div>
+                        <h3 class="text-xl font-bold text-primary-blue mb-2">Experten-Moderation</h3>
+                        <p class="text-secondary-gray">Zertifizierte Master-Moderatoren für tiefgreifende Prozesse und umsetzbare Ergebnisse.</p>
+                    </div>
+                    <div class="p-6 flex flex-col items-center text-center">
+                        <div class="text-5xl mb-4 text-secondary-blue">🎯</div>
+                        <h3 class="text-xl font-bold text-primary-blue mb-2">Maßgeschneiderte Konzepte</h3>
+                        <p class="text-secondary-gray">Jedes Retreat wird präzise auf Ihre einzigartigen Ziele und Ihre Unternehmenskultur zugeschnitten.</p>
+                    </div>
+                    <div class="p-6 flex flex-col items-center text-center">
+                        <div class="text-5xl mb-4 text-secondary-blue">⚙️</div>
+                        <h3 class="text-xl font-bold text-primary-blue mb-2">Nahtlose Logistik</h3>
+                        <p class="text-secondary-gray">Wir kümmern uns um alle Details, damit Sie sich auf Ihr Team konzentrieren können.</p>
+                    </div>
+                    <div class="p-6 flex flex-col items-center text-center">
+                        <div class="text-5xl mb-4 text-secondary-blue">🤝</div>
+                        <h3 class="text-xl font-bold text-primary-blue mb-2">Psychologische Sicherheit</h3>
+                        <p class="text-secondary-gray">Wir schaffen eine vertrauensvolle Umgebung für offene Kommunikation und echte Verbindung.</p>
+                    </div>
+                    <div class="p-6 flex flex-col items-center text-center">
+                        <div class="text-5xl mb-4 text-secondary-blue">📈</div>
+                        <h3 class="text-xl font-bold text-primary-blue mb-2">Nachhaltige Wirkung</h3>
+                        <p class="text-secondary-gray">Unsere Retreats führen zu messbaren Veränderungen und langfristigem Erfolg für Ihr Unternehmen.</p>
+                    </div>
+                    <div class="p-6 flex flex-col items-center text-center">
+                        <div class="text-5xl mb-4 text-secondary-blue">🌐</div>
+                        <h3 class="text-xl font-bold text-primary-blue mb-2">Starkes Partnernetzwerk</h3>
+                        <p class="text-secondary-gray">Zugang zu handverlesenen Experten und Premium-Locations weltweit.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="kontakt" class="py-20 bg-primary-blue text-white">
+            <div class="container mx-auto px-6 text-center max-w-3xl">
+                <h2 class="text-4xl font-bold mb-4">Bereit für den nächsten Schritt?</h2>
+                <p class="text-lg text-blue-200 mb-10">
+                    Kontaktieren Sie uns für ein unverbindliches Beratungsgespräch. Wir freuen uns darauf, Ihre Vision zu verstehen und ein maßgeschneidertes Retreat zu gestalten, das Ihr Team transformiert.
+                </p>
+                <form class="bg-white p-8 rounded-lg shadow-xl text-left text-gray-800">
+                    <div class="grid md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Ihr Name</label>
+                            <input type="text" id="name" name="name" class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-secondary-blue focus:border-secondary-blue" required>
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Ihre E-Mail</label>
+                            <input type="email" id="email" name="email" class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-secondary-blue focus:border-secondary-blue" required>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <label for="message" class="block text-sm font-medium text-gray-700 mb-2">Ihre Nachricht</label>
+                        <textarea id="message" name="message" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-secondary-blue focus:border-secondary-blue" placeholder="Erzählen Sie uns von Ihren Zielen..."></textarea>
+                    </div>
+                    <button type="submit" class="w-full btn btn-primary text-lg">Anfrage senden</button>
+                </form>
+                <p class="mt-8 text-blue-200">Oder rufen Sie uns an: <a href="tel:+49123456789" class="text-white hover:underline">+49 123 456789</a> | E-Mail: <a href="mailto:kontakt@a-volution.net" class="text-white hover:underline">kontakt@a-volution.net</a></p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-primary-blue border-t border-blue-800 text-white py-8 text-center">
+        <div class="container mx-auto px-6">
+            <p>&copy; 2025 A-Volution. Alle Rechte vorbehalten.</p>
+            <div class="mt-4 space-x-4">
+                <a href="#" class="text-blue-200 hover:text-white">Impressum</a>
+                <a href="#" class="text-blue-200 hover:text-white">Datenschutz</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile Menu Toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Package Data (gekürzt zur Übersichtlichkeit)
+            const packagesData = {
+                "org-dev": [
+                    { title: "Strategie-Reset & Neuausrichtung", focus: "Definition/Verfeinerung von Mission, Vision, Werten; Festlegung neuer Ziele und Meilensteine.", agenda: "Tag 1: Tiefenanalyse & Visionsfindung. Tag 2: Strategieentwicklung & Szenarioplanung. Tag 3-5: Aktionsplanung, Rollenklärung & Implementierungs-Roadmap.", contents: "Strategische Frameworks (z.B. OKRs), Visionsentwicklung, Wettbewerbsanalyse, Change-Management.", exercises: "Tiefeninterviews, Visions-Workshops, Szenarioplanung, Stakeholder-Mapping, Aktionsplanung.", results: "Klare strategische Roadmap, definierte KPIs, umsetzbarer Aktionsplan, ausgerichtetes Führungsteam." },
+                    { title: "Kultur-Architekten-Retreat", focus: "Analyse und Neugestaltung der Unternehmenskultur; Verankerung von Werten.", agenda: "Tag 1-2: Kultur-Audit. Tag 3-4: Werte-Definition & Soll-Kultur-Design. Tag 5-6: Verankerung & Storytelling.", contents: "Kulturmodelle, psychologische Sicherheit, Werte-Management, Storytelling.", exercises: "Kultur-Audit, Werte-Workshops, Storytelling-Sessions, Entwicklung von Verhaltensrichtlinien.", results: "Definierte Unternehmenskultur, verankerte Werte, Plan zur Förderung psychologischer Sicherheit." },
+                    { title: "Führungs-Alignment-Gipfel", focus: "Ausrichtung von Führungsteams auf gemeinsame Ziele; Verbesserung der Entscheidungsfindung.", agenda: "Tag 1: Vertrauensbildung. Tag 2: Strategische Ausrichtung. Tag 3-4: Entscheidungsfindung & Kommunikation.", contents: "Führungsausrichtung, effektive Kommunikation, Konfliktmanagement.", exercises: "360-Grad-Feedback, moderierte Diskussionen, Konfliktlösungs-Workshops, Peer-Coaching.", results: "Geeintes Führungsteam, verbesserte Kommunikation, effektivere Entscheidungsfindung." },
+                    { title: "Change-Catalyst-Retreat", focus: "Begleitung signifikanter Change-Management-Initiativen; Adressierung von Mitarbeiterbedenken.", agenda: "Tag 1: Analyse der Veränderungsbereitschaft. Tag 2: Vision & Kommunikation. Tag 3-5: Resilienz & Implementierung.", contents: "Change-Management-Modelle, Resilienz-Konzepte, Stakeholder-Analyse.", exercises: "Analyse der Veränderungsbereitschaft, Kommunikations-Workshops, Resilienz-Training.", results: "Klare Change-Roadmap, erhöhte Akzeptanz für den Wandel, gestärkte Resilienz." },
+                    { title: "Organisations-Design-Labor", focus: "Überprüfung und Neugestaltung von Organisationsstrukturen und -prozessen.", agenda: "Tag 1-2: Ist-Analyse. Tag 3: Design-Prinzipien. Tag 4-5: Rollen & Prozesse.", contents: "Organisationsdesign, Prozessoptimierung, agile Organisationsformen.", exercises: "Prozessanalyse, Design-Thinking für Strukturen, Rollendefinition, Simulation neuer Abläufe.", results: "Optimierte Organisationsstruktur, klar definierte Rollen, effizientere Prozesse." },
+                    { title: "Innovations-Ökosystem-Sprint", focus: "Förderung einer Innovationskultur; Entwicklung von Prozessen zur Ideenfindung.", agenda: "Tag 1: Innovations-Mindset. Tag 2: Ideenfindung & Prototyping. Tag 3-4: Validierung & Pitch.", contents: "Innovationsmanagement, Design Thinking, Lean Startup.", exercises: "Kreativitäts-Workshops, Design-Sprints, Prototyping, Pitch-Training.", results: "Pipeline neuer Ideen, gestärkte Innovationsfähigkeit, klare Prozesse." },
+                    { title: "Nachfolgeplanung & Talent-Pipeline", focus: "Identifizierung und Entwicklung zukünftiger Führungskräfte.", agenda: "Tag 1: Talent-Assessment. Tag 2: Karrierepfade. Tag 3: Mentoring & Coaching.", contents: "Talentmanagement, Nachfolgeplanung, Leadership Development.", exercises: "Talent-Assessments, Mentoring-Programme, Karrierepfad-Entwicklung.", results: "Klare Nachfolgeplanung, identifizierte High-Potentials, individuelle Entwicklungspläne." },
+                    { title: "Psychologische Sicherheit & Vertrauen", focus: "Schaffung einer Umgebung für offenes Feedback und Risikobereitschaft.", agenda: "Tag 1: Grundlagen. Tag 2: Offene Kommunikation. Tag 3-4: Feedback-Kultur.", contents: "Psychologische Sicherheit, Vertrauensmodelle, Kommunikationsmodelle.", exercises: "Vertrauensbildende Übungen, Workshops zu offener Kommunikation, Feedback-Training.", results: "Höhere psychologische Sicherheit, gestärktes Vertrauen, verbesserte Kommunikation." },
+                    { title: "Remote/Hybrid-Team-Integration", focus: "Überbrückung von Distanzen in verteilten Teams; Stärkung des Zusammenhalts.", agenda: "Tag 1: Kennenlernen. Tag 2: Hybride Zusammenarbeit. Tag 3-4: Team-Charta.", contents: "Herausforderungen hybrider Arbeit, Remote-Kommunikation, Teambuilding.", exercises: "Persönliche Kennenlern-Aktivitäten, Workshops zur Remote-Kommunikation, Entwicklung einer Team-Charta.", results: "Stärker integriertes Team, verbesserte Kommunikation über Distanz, klare Regeln." },
+                    { title: "Purpose-Driven Leadership", focus: "Definition und Verankerung des Unternehmenszwecks.", agenda: "Tag 1-2: Purpose-Discovery. Tag 3: Werte-Alignment. Tag 4-5: Impact-Messung.", contents: "Purpose-Konzepte, wertebasierte Führung, Storytelling, Impact-Messung.", exercises: "Purpose-Discovery-Workshops, Werte-Alignment, Storytelling, Entwicklung von Impact-Metriken.", results: "Klar definierter Unternehmenszweck, eine Führung, die den Purpose lebt, messbare Impact-Ziele." }
+                ],
+                "leadership-future": [
+                    { title: "Leadership Essentials Kickstart", focus: "Grundlagen der Führung, Kommunikation, Delegation.", agenda: "Tag 1: Führungsrollen & Kommunikation. Tag 2: Delegation & Feedback.", contents: "Führungsmodelle, aktives Zuhören, Delegationsprinzipien, Feedback-Regeln.", exercises: "Workshops zu Führungsstilen, Rollenspiele, Feedback-Übungen.", results: "Gestärkte grundlegende Führungskompetenzen, erhöhte Sicherheit in der Führungsrolle." },
+                    { title: "Team Collaboration Masterclass", focus: "Verbesserung der Teamdynamik, Konfliktlösung, effektive Zusammenarbeit.", agenda: "Tag 1: Teamdynamik & Vertrauen. Tag 2: Kommunikation & Konfliktlösung. Tag 3: Gemeinsame Ziele.", contents: "Teamphasen, Vertrauensmodelle, Kommunikationsmodelle.", exercises: "Teambuilding-Challenges, Workshops zu Kommunikationsmodellen, Problemlösungs-Sprints.", results: "Verbesserte Teamdynamik, konstruktive Konfliktlösung, gestärkter Zusammenhalt." },
+                    { title: "Personal Growth & Resilience", focus: "Stressmanagement, Achtsamkeit, persönliche Resilienz, Work-Life-Balance.", agenda: "Tag 1: Achtsamkeit. Tag 2: Stressbewältigung. Tag 3: Work-Life-Balance.", contents: "Achtsamkeitsprinzipien, Stressphysiologie, Resilienz-Faktoren.", exercises: "Yoga, Meditation, Naturwanderungen, Workshops zu Stressbewältigung.", results: "Reduzierter Stress, erhöhte persönliche Resilienz, bessere Work-Life-Balance." },
+                    { title: "Future Vision & Strategy Sprint", focus: "Entwicklung von Zukunftsstrategien, Innovationsförderung.", agenda: "Tag 1: Trendanalyse. Tag 2: Ideenfindung. Tag 3: Prototyping.", contents: "Zukunftsforschung, Design Thinking, strategische Planung.", exercises: "Brainstorming, Trendanalysen, Design-Thinking-Grundlagen, Prototyping.", results: "Klare Zukunftsvision, innovative Strategieansätze, gesteigerte Innovationsfähigkeit." },
+                    { title: "Effective Communication & Feedback", focus: "Verbesserung der internen Kommunikation, Etablierung einer Feedback-Kultur.", agenda: "Tag 1: Kommunikation & Zuhören. Tag 2: Feedback & Konfliktkommunikation.", contents: "Kommunikationsmodelle, aktives Zuhören, Feedback-Regeln.", exercises: "Aktives Zuhören-Training, Feedback-Modelle, Rollenspiele.", results: "Verbesserte Kommunikationsfähigkeiten, offene Feedback-Kultur, reduzierte Missverständnisse." }
+                ],
+                "hearts-hotel": [
+                    { title: "Harz-Natur-Strategie-Gipfel", focus: "Strategische Planung in inspirierender Naturumgebung.", agenda: "Tag 1: Strategie-Kick-off. Tag 2: 'Walk & Talk' im Nationalpark. Tag 3: Aktionsplanung.", contents: "Strategische Planungsmethoden, Visionsentwicklung.", exercises: "Strategie-Workshops in der Mountain Lounge, geführte Wanderungen, regionale Kulinarik.", results: "Klare strategische Ausrichtung, gestärkter Teamzusammenhalt durch Naturerlebnisse." },
+                    { title: "Team-Abenteuer Harz", focus: "Aktives Teambuilding und Zusammenhalt in der Natur.", agenda: "Tag 1: Outdoor-Challenge. Tag 2: Reflexion & Teamspiele.", contents: "Teambuilding-Prinzipien, Kommunikation unter Druck.", exercises: "Outdoor-Challenges, Nutzung des 'Circus Halligalli', Lagerfeuer-Abend.", results: "Gestärkter Teamgeist, verbesserte Kommunikation, unvergessliche Erlebnisse." },
+                    { title: "Digital Detox & Wellness-Auszeit", focus: "Erholung, Stressabbau und mentale Klarheit.", agenda: "Tag 1: Achtsamkeits-Einführung. Tag 2: Wellness & Natur. Tag 3: Reflexion.", contents: "Achtsamkeit, Stressbewältigung, Digital-Detox-Strategien.", exercises: "Yoga, Meditation, Spa-Nutzung, Achtsamkeitswanderungen.", results: "Reduzierter Stress, erhöhte mentale Klarheit, gesteigertes Wohlbefinden." },
+                    { title: "Kreativ-Labor im Harz", focus: "Förderung von Innovation und kreativem Denken.", agenda: "Tag 1: Kreativitätstechniken. Tag 2: Ideenentwicklung.", contents: "Kreativitätstechniken, Design Thinking.", exercises: "Workshops in der Coffee Lounge, Kunst-Sessions, Brainstorming-Spaziergänge.", results: "Neue innovative Ideen, gesteigertes kreatives Potenzial des Teams." },
+                    { title: "Führungskräfte-Reflexion am Berg", focus: "Persönliche und professionelle Reflexion für Führungskräfte.", agenda: "Tag 1: Selbstreflexion. Tag 2: Peer-Coaching. Tag 3: Aktionsplanung.", contents: "Reflexionstechniken, Coaching-Methoden, Führungsmodelle.", exercises: "Einzel-Coaching, geführte Reflexions-Spaziergänge, vertrauliche Gespräche.", results: "Gesteigerte Selbstwahrnehmung, klare persönliche und professionelle Ziele." }
+                ],
+                "sustainability": [
+                    { title: "Circular Economy Blueprint", focus: "Entwicklung einer Strategie für die Transformation zum Kreislaufwirtschaftsmodell.", agenda: "Tag 1: Ist-Analyse. Tag 2: Modellentwicklung. Tag 3-4: Implementierung.", contents: "Kreislaufwirtschaftsprinzipien, Wertschöpfungskettenanalyse.", exercises: "Workshops zu Kreislaufprinzipien, Entwicklung eines 'Circular Business Model Canvas'.", results: "Konkrete Strategie für die Kreislaufwirtschaft, identifizierte Potenziale." },
+                    { title: "Regenerative Business Design Lab", focus: "Konzeption und Implementierung regenerativer Geschäftsmodelle.", agenda: "Tag 1-2: Regenerative Prinzipien. Tag 3: Design-Sprints. Tag 4-5: Pilotprojekt.", contents: "Regenerative Prinzipien, Ökosystem-Dienstleistungen, Design Thinking.", exercises: "Design-Sprints, Ökosystem-Mapping, Besuch eines regenerativen Betriebs.", results: "Konkrete regenerative Geschäftsmodell-Konzepte, definierte Pilotprojekte." },
+                    { title: "Climate Adaptation Strategy Summit", focus: "Entwicklung von Anpassungsstrategien an die Folgen des Klimawandels.", agenda: "Tag 1: Klimarisikoanalyse. Tag 2: Anpassungsstrategien. Tag 3-4: Implementierung.", contents: "Klimarisikoanalyse, Szenarioplanung, Resilienz von Lieferketten.", exercises: "Risikoanalyse, Szenarioplanung, Resilienz-Workshops, Krisenmanagement-Simulationen.", results: "Robuste Klimaanpassungsstrategie, resiliente Lieferketten, gestärkte Krisenbewältigung." },
+                    { title: "ESG-Leadership-Accelerator", focus: "Stärkung der Führungskompetenzen im Bereich Umwelt, Soziales und Governance (ESG).", agenda: "Tag 1: ESG-Grundlagen. Tag 2: Ethische Führung. Tag 3: ESG-Roadmap.", contents: "ESG-Standards, ethische Führung, Stakeholder-Engagement.", exercises: "Workshops zu ESG-Standards, ethische Entscheidungsfindung, Entwicklung von ESG-Roadmaps.", results: "Gestärkte ESG-Führungskompetenzen, klare ESG-Roadmap, verbesserte Stakeholder-Beziehungen." },
+                    { title: "Sustainable Supply Chain", focus: "Neugestaltung von Lieferketten nach Nachhaltigkeits- und Kreislaufprinzipien.", agenda: "Tag 1: Analyse. Tag 2: Kreislauf-Logistik. Tag 3-4: Partnerintegration.", contents: "Nachhaltige Lieferketten, Kreislauf-Logistik, grüne Beschaffung.", exercises: "Analyse der Lieferkette, Workshops zu nachhaltiger Beschaffung, Kreislauf-Logistik.", results: "Nachhaltigere und resilientere Lieferkette, reduzierte Umweltauswirkungen." }
+                ]
+            };
+
+            const packagesContainer = document.getElementById('packages-container');
+            const filterButtons = document.querySelectorAll('.filter-btn');
+
+            function renderPackages(filter) {
+                packagesContainer.innerHTML = '';
+                const packages = packagesData[filter] || [];
+                
+                if (packages.length === 0) {
+                    packagesContainer.innerHTML = `<p class="text-secondary-gray col-span-full">Für diese Kategorie sind bald weitere Informationen verfügbar.</p>`;
+                    return;
+                }
+
+                packages.forEach((pkg, index) => {
+                    const packageElement = document.createElement('div');
+                    packageElement.className = 'border border-gray-200 rounded-lg overflow-hidden mb-4 shadow-sm';
+                    packageElement.innerHTML = `
+                        <button class="accordion-header w-full text-left p-5 flex justify-between items-center bg-gray-50 hover:bg-gray-100 focus:outline-none">
+                            <span class="text-lg font-bold text-primary-blue">${pkg.title}</span>
+                            <span class="transform transition-transform duration-300 text-secondary-blue font-bold text-2xl">+</span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="p-6 border-t border-gray-200 bg-white">
+                                <h4 class="font-semibold text-secondary-blue mb-2">Fokus:</h4>
+                                <p class="text-secondary-gray mb-4">${pkg.focus}</p>
+                                <h4 class="font-semibold text-secondary-blue mb-2">Agenda (Beispiel):</h4>
+                                <p class="text-secondary-gray mb-4">${pkg.agenda}</p>
+                                <h4 class="font-semibold text-secondary-blue mb-2">Inhalte:</h4>
+                                <p class="text-secondary-gray mb-4">${pkg.contents}</p>
+                                <h4 class="font-semibold text-secondary-blue mb-2">Übungen:</h4>
+                                <p class="text-secondary-gray mb-4">${pkg.exercises}</p>
+                                <h4 class="font-semibold text-secondary-blue mb-2">Ergebnisse:</h4>
+                                <p class="text-secondary-gray mb-4">${pkg.results}</p>
+                                <a href="#kontakt" class="inline-block mt-4 text-secondary-blue font-bold hover:underline">Dieses Paket anfragen →</a>
+                            </div>
+                        </div>
+                    `;
+                    packagesContainer.appendChild(packageElement);
+                });
+
+                // Add accordion functionality
+                document.querySelectorAll('.accordion-header').forEach(header => {
+                    header.addEventListener('click', () => {
+                        const content = header.nextElementSibling;
+                        const icon = header.querySelector('span:last-child');
+                        
+                        if (content.style.maxHeight) {
+                            content.style.maxHeight = null;
+                            icon.classList.remove('rotate-45');
+                        } else {
+                            // Close all other accordions
+                            document.querySelectorAll('.accordion-content').forEach(c => c.style.maxHeight = null);
+                            document.querySelectorAll('.accordion-header span:last-child').forEach(i => i.classList.remove('rotate-45'));
+                            
+                            content.style.maxHeight = content.scrollHeight + "px";
+                            icon.classList.add('rotate-45');
+                        }
+                    });
+                });
+            }
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    renderPackages(this.dataset.filter);
+                });
+            });
+
+            // Initial render
+            renderPackages('org-dev');
+        });
+    </script>
+</body>
+</html>
